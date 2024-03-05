@@ -1,5 +1,6 @@
 package fr.angelsky.angelskycoalitions.managers;
 
+import fr.angelsky.angelskycoalitions.AngelSkyCoalitions;
 import fr.angelsky.angelskycoalitions.managers.sql.SQLManager;
 
 public class ManagerLoader {

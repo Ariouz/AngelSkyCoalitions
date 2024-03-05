@@ -1,25 +1,29 @@
-package fr.angelsky.skyblockapi.managers;
+package fr.angelsky.angelskycoalitions.managers.sql;
 
-import fr.angelsky.angelskyapi.api.sql.accounts.SQLAccount;
-import fr.angelsky.skyblockapi.api.SkyBlockApiInstance;
-import fr.angelsky.skyblockapi.sql.SkyblockAccount;
+import fr.angelsky.angelskycoalitions.AngelSkyCoalitions;
 
 public class SQLManager {
 
-    private final SkyBlockApiInstance skyBlockApiInstance;
+    private final AngelSkyCoalitions angelSkyCoalitions;
 
-    private SkyblockAccount skyblockAccount;
+    private SQLCoalition sqlCoalition;
+    private SQLCoalitionPlayer sqlCoalitionPlayer;
 
-    public SQLManager(SkyBlockApiInstance skyBlockApiInstance){
-        this.skyBlockApiInstance = skyBlockApiInstance;
+    public SQLManager(AngelSkyCoalitions angelSkyCoalitions){
+        this.angelSkyCoalitions = angelSkyCoalitions;
         init();
     }
 
     public void init(){
-        this.skyblockAccount = new SkyblockAccount(skyBlockApiInstance, skyBlockApiInstance.getAngelSkyApiInstance());
+        this.sqlCoalition = new SQLCoalition(angelSkyCoalitions);
+        this.sqlCoalitionPlayer = new SQLCoalitionPlayer(angelSkyCoalitions);
     }
 
-    public SkyblockAccount getSkyblockAccount() {
-        return skyblockAccount;
+    public SQLCoalition getSqlCoalition() {
+        return sqlCoalition;
+    }
+
+    public SQLCoalitionPlayer getSqlCoalitionPlayer() {
+        return sqlCoalitionPlayer;
     }
 }
