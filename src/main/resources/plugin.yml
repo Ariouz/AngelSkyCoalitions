@@ -1,0 +1,8 @@
+name: AngelSkyCoalitions
+version: '${project.version}'
+main: fr.angelsky.angelskycoalitions.AngelSkyCoalitions
+api-version: 1.20
+dependencies:
+  - name: AngelSkyAPI
+    required: true
+authors: [Ariouz]
