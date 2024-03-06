@@ -9,10 +9,10 @@ public enum CoalitionType {
     // VERT (crimson -> passer en vert)
     // BLANC (artic)
 
-    OSARON("Osaron", ""),
-    PROGATE("Progate", ""),
+    OSARON("Osaron", ""), // ROSE
+    PROGATE("Progate", ""), // VERT
     MORIA("Moria", "#d7f6f6"), // Artic
-    ADAGAN("Adagan"," ")
+    ADAGAN("Adagan"," ") // ROUGE
 
     ;
 

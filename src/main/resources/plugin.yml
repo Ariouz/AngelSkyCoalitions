@@ -5,3 +5,6 @@ api-version: 1.20
 dependencies:
   - AngelskyApi
 authors: [Ariouz]
+commands:
+  setplayercoalition:
+    description: Définir la coalition d'un joueur

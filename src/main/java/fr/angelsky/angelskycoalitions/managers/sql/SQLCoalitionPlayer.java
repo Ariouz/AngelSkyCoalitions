@@ -5,6 +5,8 @@ import fr.angelsky.angelskycoalitions.AngelSkyCoalitions;
 import fr.angelsky.angelskycoalitions.coalition.Coalition;
 import fr.angelsky.angelskycoalitions.coalition.CoalitionPlayer;
 import fr.angelsky.angelskycoalitions.coalition.CoalitionType;
+import org.bukkit.entity.Player;
+import org.checkerframework.checker.units.qual.C;
 
 import java.sql.SQLException;
 import java.util.UUID;
@@ -37,22 +39,26 @@ public class SQLCoalitionPlayer {
         sqlManager.getMySQL().update(String.format(query, COALITION_TABLE, uuid.toString(), player_name, coalitionType.getId()));
     }
 
-    public void loadPlayer(CoalitionPlayer coalitionPlayer) {
-        String query = "SELECT * FROM %s WHERE player_uuid = %s";
-        sqlManager.getMySQL().query(String.format(query, COALITION_TABLE, coalitionPlayer.getPlayer().getUniqueId().toString()), resultSet -> {
+    public CoalitionPlayer loadPlayer(Player player) {
+        String query = "SELECT * FROM %s WHERE player_uuid = '%s'";
+        return (CoalitionPlayer) sqlManager.getMySQL().query(String.format(query, COALITION_TABLE, player.getUniqueId()), resultSet -> {
+            CoalitionPlayer coalitionPlayer;
             try {
                 if (resultSet.next()) {
+                    coalitionPlayer = new CoalitionPlayer(player, angelSkyCoalitions.getManagerLoader().getCoalitionManager().getCoalition(CoalitionType.getById(resultSet.getString("coalition_id"))));
                     coalitionPlayer.setCoalitionPoints(resultSet.getInt("coalition_points"));
                     coalitionPlayer.setEventPoints(resultSet.getInt("event_points"));
+                    return coalitionPlayer;
                 }
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
+            return null;
         });
     }
 
     public void save(CoalitionPlayer coalitionPlayer) {
-        String query = "UPDATE %s SET event_points = '%s', coalition_points = '%s' WHERE player_uuid = %s";
-        sqlManager.getMySQL().update(String.format(query, COALITION_TABLE, coalitionPlayer.getEventPoints(), coalitionPlayer.getCoalitionPoints(), coalitionPlayer.getPlayer().getUniqueId()));
+        String query = "UPDATE %s SET coalition_id = '%s', event_points = '%s', coalition_points = '%s' WHERE player_uuid = '%s'";
+        sqlManager.getMySQL().update(String.format(query, COALITION_TABLE, coalitionPlayer.getCoalition().getCoalitionType().getId(), coalitionPlayer.getEventPoints(), coalitionPlayer.getCoalitionPoints(), coalitionPlayer.getPlayer().getUniqueId()));
     }
 }

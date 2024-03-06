@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 public class CoalitionPlayer {
 
     private final Player player;
-    private final Coalition coalition;
+    private Coalition coalition;
     private int eventPoints;
     private int coalitionPoints;
 
@@ -25,6 +25,10 @@ public class CoalitionPlayer {
 
     public int getEventPoints() {
         return eventPoints;
+    }
+
+    public void setCoalition(Coalition coalition) {
+        this.coalition = coalition;
     }
 
     public void setEventPoints(int eventPoints) {
