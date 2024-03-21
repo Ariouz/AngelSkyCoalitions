@@ -6,10 +6,12 @@ public class Coalition {
     private int eventPoints;
     private int monthlyEventPoints;
     private int coalitionPoints;
+    private String oraxenEmblem;
 
     public Coalition(CoalitionType coalitionType, int eventPoints, int monthlyEventPoints, int coalitionPoints)
     {
         this.coalitionType = coalitionType;
+        this.oraxenEmblem = coalitionType.getEmblem();
     }
 
     public CoalitionType getCoalitionType() {
@@ -34,6 +36,10 @@ public class Coalition {
 
     public int getCoalitionPoints() {
         return coalitionPoints;
+    }
+
+    public String getOraxenEmblem() {
+        return oraxenEmblem;
     }
 
     public void setCoalitionPoints(int coalitionPoints) {

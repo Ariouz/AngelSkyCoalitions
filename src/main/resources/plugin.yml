@@ -8,3 +8,8 @@ authors: [Ariouz]
 commands:
   setplayercoalition:
     description: Définir la coalition d'un joueur
+  coalitions:
+    description: Commande coalitions
+    aliases:
+      - coalition
+      - coa

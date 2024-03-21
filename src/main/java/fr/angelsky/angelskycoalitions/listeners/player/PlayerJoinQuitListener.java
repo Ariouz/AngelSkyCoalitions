@@ -27,11 +27,7 @@ public class PlayerJoinQuitListener implements Listener {
         Player player = event.getPlayer();
         SQLManager sqlManager = angelSkyCoalitions.getManagerLoader().getSqlManager();
 
-        if (!sqlManager.getSqlCoalitionPlayer().accountExists(player.getUniqueId()))
-            return ;
         angelSkyCoalitions.getManagerLoader().getCoalitionManager().loadPlayer(player);
-        CoalitionPlayer coalitionPlayer = angelSkyCoalitions.getManagerLoader().getCoalitionManager().getCoalitionPlayer(player);
-        Bukkit.broadcastMessage(ChatColor.RED+ coalitionPlayer.getCoalition().getCoalitionType().getDisplay());
     }
 
     @EventHandler

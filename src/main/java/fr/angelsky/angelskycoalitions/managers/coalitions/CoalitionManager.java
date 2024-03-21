@@ -5,6 +5,7 @@ import fr.angelsky.angelskycoalitions.coalition.Coalition;
 import fr.angelsky.angelskycoalitions.coalition.CoalitionPlayer;
 import fr.angelsky.angelskycoalitions.coalition.CoalitionType;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,7 +44,21 @@ public class CoalitionManager {
 
     public void loadPlayer(Player player)
     {
+        if (!this.angelSkyCoalitions.getManagerLoader().getSqlManager().getSqlCoalitionPlayer().accountExists(player.getUniqueId()))
+            return;
         this.coalitionPlayers.put(player.getUniqueId(), angelSkyCoalitions.getManagerLoader().getSqlManager().getSqlCoalitionPlayer().loadPlayer(player));
+    }
+
+    public void createAccount(Player player, Coalition coalition)
+    {
+        angelSkyCoalitions.getManagerLoader().getSqlManager().getSqlCoalitionPlayer().createAccount(player.getUniqueId(), player.getName(), coalition.getCoalitionType());
+        loadPlayer(player);
+        CoalitionPlayer coalitionPlayer = getCoalitionPlayer(player);
+        coalitionPlayer.setCoalition(coalition);
+        Bukkit.broadcastMessage(angelSkyCoalitions.getAngelSkyApiInstance().translateChatColorHex(AngelSkyCoalitions.PREFIX + player.getName() + " a rejoint la coalition " + coalition.getCoalitionType().getHexColor() + coalition.getCoalitionType().getDisplay()));
+        player.sendMessage(angelSkyCoalitions.getAngelSkyApiInstance().translateChatColorHex(AngelSkyCoalitions.PREFIX + "Vous avez rejoint la coalition " + coalition.getCoalitionType().getHexColor() + coalition.getCoalitionType().getDisplay()));
+        player.teleport(coalition.getCoalitionType().getSpawn());
+        player.playSound(player.getLocation(), Sound.ITEM_GOAT_HORN_SOUND_0, 30, 50);
     }
 
     public void savePlayer(Player player)
@@ -62,6 +77,10 @@ public class CoalitionManager {
         {
             this.angelSkyCoalitions.getManagerLoader().getSqlManager().getSqlCoalitionPlayer().save(entries.getValue());
         }
+    }
+
+    public ArrayList<Coalition> getCoalitions() {
+        return coalitions;
     }
 
     public CoalitionPlayer getCoalitionPlayer(Player player)
