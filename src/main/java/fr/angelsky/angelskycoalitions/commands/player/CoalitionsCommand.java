@@ -32,7 +32,7 @@ public class CoalitionsCommand implements CommandExecutor {
         {
             if (!player.hasPermission(CoalitionPermissions.ACCESS.getPermission()))
             {
-                player.sendMessage(AngelSkyCoalitions.PREFIX + ChatColor.RED + "Vous devez atteindre le niveau 25 pour débloquer l'accès aux coalitions.");
+                player.sendMessage(AngelSkyCoalitions.PREFIX + ChatColor.RED + "Vous devez atteindre le niveau 30 pour débloquer l'accès aux coalitions.");
                 return false;
             }
             angelSkyCoalitions.getManagerLoader().getMenuManager().getCoalitionsMenu().openCoalitionSelectionMenu(player);
