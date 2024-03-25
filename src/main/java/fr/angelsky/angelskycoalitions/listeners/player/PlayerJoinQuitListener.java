@@ -2,6 +2,7 @@ package fr.angelsky.angelskycoalitions.listeners.player;
 
 import fr.angelsky.angelskycoalitions.AngelSkyCoalitions;
 import fr.angelsky.angelskycoalitions.coalition.CoalitionPlayer;
+import fr.angelsky.angelskycoalitions.coalition.CoalitionType;
 import fr.angelsky.angelskycoalitions.managers.coalitions.CoalitionManager;
 import fr.angelsky.angelskycoalitions.managers.sql.SQLManager;
 import org.bukkit.Bukkit;
@@ -10,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.checkerframework.checker.units.qual.A;
 
 public class PlayerJoinQuitListener implements Listener {
@@ -25,19 +27,20 @@ public class PlayerJoinQuitListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event)
     {
         Player player = event.getPlayer();
-        SQLManager sqlManager = angelSkyCoalitions.getManagerLoader().getSqlManager();
-
+        if (!angelSkyCoalitions.getManagerLoader().getSqlManager().getSqlCoalitionPlayer().accountExists(player.getUniqueId()))
+        {
+            System.out.println("Create account for player");
+            angelSkyCoalitions.getManagerLoader().getSqlManager().getSqlCoalitionPlayer().createAccount(player.getUniqueId(), player.getName(), CoalitionType.NONE);
+        }
         angelSkyCoalitions.getManagerLoader().getCoalitionManager().loadPlayer(player);
     }
 
     @EventHandler
-    public void onPlayerQuit(PlayerJoinEvent event)
+    public void onPlayerQuit(PlayerQuitEvent event)
     {
         Player player = event.getPlayer();
         CoalitionManager coalitionManager = angelSkyCoalitions.getManagerLoader().getCoalitionManager();
 
-        if (!coalitionManager.playerExists(player))
-            return ;
         coalitionManager.savePlayer(player);
     }
 

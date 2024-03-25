@@ -28,7 +28,7 @@ public class CoalitionsCommand implements CommandExecutor {
             return false;
         }
         CoalitionManager coalitionManager = angelSkyCoalitions.getManagerLoader().getCoalitionManager();
-        if (!coalitionManager.playerExists(player))
+        if (!coalitionManager.hasCoalition(player))
         {
             if (!player.hasPermission(CoalitionPermissions.ACCESS.getPermission()))
             {

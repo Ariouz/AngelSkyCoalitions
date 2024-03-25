@@ -4,6 +4,7 @@ import fr.angelsky.angelskyapi.api.utils.HexColors;
 import fr.angelsky.angelskycoalitions.AngelSkyCoalitions;
 import fr.angelsky.angelskycoalitions.coalition.Coalition;
 import fr.angelsky.angelskycoalitions.coalition.CoalitionPlayer;
+import fr.angelsky.angelskycoalitions.coalition.CoalitionType;
 import fr.angelsky.angelskycoalitions.managers.coalitions.CoalitionManager;
 import fr.mrmicky.fastinv.FastInv;
 import fr.mrmicky.fastinv.ItemBuilder;
@@ -42,12 +43,13 @@ public class CoalitionsMenu {
         int i = 0;
         for (Coalition coalition : coalitionManager.getCoalitions())
         {
+            if (coalition.getCoalitionType() == CoalitionType.NONE) continue;
             ItemStack coaItem = new ItemBuilder(OraxenItems.getItemById(coalition.getOraxenEmblem()).build())
                     .name(angelSkyCoalitions.getAngelSkyApiInstance().translateChatColorHex(HexColors.LIGHTER_GRAY + "Rejoindre " + coalition.getCoalitionType().getHexColor() + coalition.getCoalitionType().getDisplay()))
                     .build();
             inv.setItem(slots[i], coaItem, event -> {
                 event.setCancelled(true);
-                angelSkyCoalitions.getManagerLoader().getCoalitionManager().createAccount(player, coalition);
+                angelSkyCoalitions.getManagerLoader().getCoalitionManager().joinCoalition(player, coalition);
             });
             i++;
         }

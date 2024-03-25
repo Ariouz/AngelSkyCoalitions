@@ -44,15 +44,12 @@ public class CoalitionManager {
 
     public void loadPlayer(Player player)
     {
-        if (!this.angelSkyCoalitions.getManagerLoader().getSqlManager().getSqlCoalitionPlayer().accountExists(player.getUniqueId()))
-            return;
         this.coalitionPlayers.put(player.getUniqueId(), angelSkyCoalitions.getManagerLoader().getSqlManager().getSqlCoalitionPlayer().loadPlayer(player));
     }
 
-    public void createAccount(Player player, Coalition coalition)
+    public void joinCoalition(Player player, Coalition coalition)
     {
-        angelSkyCoalitions.getManagerLoader().getSqlManager().getSqlCoalitionPlayer().createAccount(player.getUniqueId(), player.getName(), coalition.getCoalitionType());
-        loadPlayer(player);
+        //loadPlayer(player);
         CoalitionPlayer coalitionPlayer = getCoalitionPlayer(player);
         coalitionPlayer.setCoalition(coalition);
         Bukkit.broadcastMessage(angelSkyCoalitions.getAngelSkyApiInstance().translateChatColorHex(AngelSkyCoalitions.PREFIX + player.getName() + " a rejoint la coalition " + coalition.getCoalitionType().getHexColor() + coalition.getCoalitionType().getDisplay()));
@@ -67,9 +64,9 @@ public class CoalitionManager {
         this.coalitionPlayers.remove(player.getUniqueId());
     }
 
-    public boolean playerExists(Player player)
+    public boolean hasCoalition(Player player)
     {
-        return this.getCoalitionPlayer(player) != null;
+        return this.getCoalitionPlayer(player).getCoalition().getCoalitionType() != CoalitionType.NONE;
     }
 
     public void saveAll() {

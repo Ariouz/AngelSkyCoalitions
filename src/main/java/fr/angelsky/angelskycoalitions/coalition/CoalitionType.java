@@ -13,6 +13,7 @@ public enum CoalitionType {
     // VERT (crimson -> passer en vert)
     // BLANC (artic)
 
+    NONE("Aucune", "", "", "", null),
     OSARON("Osaron", "osaron_emblem", "##EB9BBA#", "city_osaron", new Location(null, -1.5, 88, -0.5, -90f, 0f)), // ROSE
     PROGATE("Progate", "progate_emblem", "##377252#", "city_progate", new Location(null, 0.5, 159, 0.5, 0f, 0f)), // VERT
     MORIA("Moria", "moria_emblem", "##d7f6f6#", "city_moria", new Location(null, 5.5, 106, 137.5, 180f, 0f)), // Artic
