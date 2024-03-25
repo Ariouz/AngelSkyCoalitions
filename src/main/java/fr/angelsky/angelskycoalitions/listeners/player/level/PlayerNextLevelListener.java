@@ -25,7 +25,7 @@ public class PlayerNextLevelListener implements Listener {
         int rank = event.getTempPlayer().getPlayerLevel().getLevelRank();
         int newLevel = event.getNewLevel();
 
-        if (rank == 0 && newLevel == 25)
+        if (rank == 0 && newLevel == 30)
         {
             LuckPermsIntegrationManager luckperms = angelSkyCoalitions.getAngelSkyApiInstance().getApiManager().getLuckPermsIntegrationManager();
             luckperms.addPermission(player.getUniqueId(), CoalitionPermissions.ACCESS.getPermission());
