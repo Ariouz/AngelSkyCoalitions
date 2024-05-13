@@ -9,10 +9,8 @@ import fr.angelsky.angelskycoalitions.managers.coalitions.CoalitionManager;
 import fr.mrmicky.fastinv.FastInv;
 import fr.mrmicky.fastinv.ItemBuilder;
 import io.th0rgal.oraxen.api.OraxenItems;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -44,7 +42,7 @@ public class CoalitionsMenu {
         for (Coalition coalition : coalitionManager.getCoalitions())
         {
             if (coalition.getCoalitionType() == CoalitionType.NONE) continue;
-            ItemStack coaItem = new ItemBuilder(OraxenItems.getItemById(coalition.getOraxenEmblem()).build())
+            ItemStack coaItem = new ItemBuilder(OraxenItems.getItemById(coalition.getOraxenEmblemItem()).build())
                     .name(angelSkyCoalitions.getAngelSkyApiInstance().translateChatColorHex(HexColors.LIGHTER_GRAY + "Rejoindre " + coalition.getCoalitionType().getHexColor() + coalition.getCoalitionType().getDisplay()))
                     .build();
             inv.setItem(slots[i], coaItem, event -> {

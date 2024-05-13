@@ -23,6 +23,7 @@ public class PlayerJoinQuitListener implements Listener {
         this.angelSkyCoalitions = angelSkyCoalitions;
     }
 
+    @SuppressWarnings("deprecation")
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event)
     {
@@ -33,6 +34,10 @@ public class PlayerJoinQuitListener implements Listener {
             angelSkyCoalitions.getManagerLoader().getSqlManager().getSqlCoalitionPlayer().createAccount(player.getUniqueId(), player.getName(), CoalitionType.NONE);
         }
         angelSkyCoalitions.getManagerLoader().getCoalitionManager().loadPlayer(player);
+
+        CoalitionPlayer coalitionPlayer = angelSkyCoalitions.getManagerLoader().getCoalitionManager().getCoalitionPlayer(player);
+        if (coalitionPlayer.getCoalition().getCoalitionType() == CoalitionType.NONE) return;
+        player.setPlayerListName(coalitionPlayer.getCoalition().getOraxenBannerChar() + " " + player.getPlayerListName());
     }
 
     @EventHandler

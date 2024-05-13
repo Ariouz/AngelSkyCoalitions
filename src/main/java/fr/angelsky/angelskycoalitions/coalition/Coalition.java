@@ -38,8 +38,13 @@ public class Coalition {
         return coalitionPoints;
     }
 
-    public String getOraxenEmblem() {
+    public String getOraxenEmblemItem() {
         return oraxenEmblem;
+    }
+
+    public String getOraxenBannerChar()
+    {
+        return getCoalitionType().getGlyph().getCharacter();
     }
 
     public void setCoalitionPoints(int coalitionPoints) {
